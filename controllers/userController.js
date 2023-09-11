@@ -4,10 +4,7 @@ module.exports = {
 
     Insert: async (req, res) => {  
 
-        const a = await querybuilder.save('data', {
-            "name" : "Prachi",
-            "data" : "03/02/2002"
-        });
+        const a = await querybuilder.save(req.body.table, req.body.values);
         console.log(a);
         res.status(200).json({
             success: 'Test'

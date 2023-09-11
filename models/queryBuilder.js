@@ -9,9 +9,9 @@ const settings = {
 const querybuilder = new QueryBuilder(settings, 'mysql', 'pool');
 
 class QueryBuilders { 
-    // constructor(querybuilder) {
-    //     this.querybuilder = querybuilder
-    // }
+    constructor(querybuilder) {
+        this.querybuilder = querybuilder;
+    }
 
     static async getTable(table,select,where) {
        
@@ -41,15 +41,16 @@ class QueryBuilders {
             const keys = Object.keys(data).join(',');
             let qry  = `INSERT INTO ${name} (${keys}) VALUES (${Iterator})`;
             console.log(qry);
-            return await db.query(qry);
-            // db.query(qry, (err, result) => {
-            //     if (err) {
-            //         return err;
-            //     }
-            //     return 1;
-            // });
+            //return await DB.query(qry);
+            db.query(qry, (err, result) => {
+                if (err) {
+                    return err;
+                }
+                return result;
+            });
         } catch (err){
-            return console.error("Error : " + err.msg);
+            console.error("Error : " + err.msg);
+            return null;
         }
         finally {
             querybuilder.disconnect();
