@@ -13,7 +13,7 @@ class QueryBuilders {
         this.querybuilder = querybuilder;
     }
 
-    static async getTable(table,select,where) {
+    static async getTable(table,select,where) {     ``
        
         try {
             const qb = await querybuilder.get_connection();
@@ -30,8 +30,8 @@ class QueryBuilders {
     } 
 
     static async save(name,data) {
-        
-        try {
+
+       try {
             // const Iterator =  Object.entries(object1).map((key , value) => `${key}`)//.join(','); //----- Trying yo using map function to print Object Entries
             let Iterator = [];
             for (const [key, value] of Object.entries(data)) {
@@ -40,20 +40,10 @@ class QueryBuilders {
             Iterator.join(',');
             const keys = Object.keys(data).join(',');
             let qry  = `INSERT INTO ${name} (${keys}) VALUES (${Iterator})`;
-            console.log(qry);
-            //return await DB.query(qry);
-            db.query(qry, (err, result) => {
-                if (err) {
-                    return err;
-                }
-                return result;
-            });
+        
+            return await db.query(qry);
         } catch (err){
-            console.error("Error : " + err.msg);
-            return null;
-        }
-        finally {
-            querybuilder.disconnect();
+            return console.error("Error : " + err.msg);
         }
     }
 

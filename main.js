@@ -8,6 +8,8 @@ const fileUpload = require('express-fileupload');
 const app = express();
 require('dotenv').config()
 const db = require('./config/database');
+global.db = db;
+//--- DB -----
 const PORT = process.env.PORT || 3000;
 
 app.use(express.json());
@@ -18,8 +20,6 @@ app.use(fileUpload());
 const user = require('./routes/user');
 app.use(user);
 
-//--- DB -----
-global.db = db;
 // set the app to listen on the port
 const server = app.listen(PORT, () => {
     console.log(`Server running on ${process.env.APP_URL}/${process.env.PORT}`)
@@ -38,4 +38,3 @@ process.on('uncaughtException', (err) => {
     console.log(`Error: ${err.message}`);
     process.exit(1);
 });
-
