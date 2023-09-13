@@ -1,14 +1,25 @@
 
 const querybuilder = require('../models/queryBuilder.js');
+const ErrorHandler = require('../utils/errorHandler');
+
 module.exports = {
 
     Insert: async (req, res) => {  
 
         const a = await querybuilder.save(req.body.table, req.body.values);
-        console.log(a);
-        res.status(200).json({
-            success: 'Test'
-        });
+        if (err) return next(new ErrorHandler(err, 500));
+        console.log(a)
+        // if(a[0]) {
+        //     res.status(200).json({
+        //         success: 'Inserted Successfully.'
+        //     });
+        // } else {
+        //     res.status(200).json({
+        //         error: a,
+        //         message : "Not Inserted"
+        //     });
+        // }
+        
     }
 }
 

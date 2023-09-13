@@ -42,8 +42,9 @@ class QueryBuilders {
             let qry  = `INSERT INTO ${name} (${keys}) VALUES (${Iterator})`;
         
             return await db.query(qry);
-        } catch (err){
-            return console.error("Error : " + err.msg);
+        } catch (err) {
+            console.error("Err - " + err)
+            return err.msg;
         }
     }
 
